@@ -1,6 +1,5 @@
 package fr.maaf.waterproof;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
@@ -20,6 +19,8 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class AccueilFragment extends Fragment implements LocationListener, AdapterView.OnItemSelectedListener {
 
     private static View view;
@@ -29,7 +30,6 @@ public class AccueilFragment extends Fragment implements LocationListener, Adapt
      */
 
     private static GoogleMap mMap;
-    private static Double latitude, longitude;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -41,8 +41,7 @@ public class AccueilFragment extends Fragment implements LocationListener, Adapt
                 R.layout.fragment_accueil, container, false);
         // Passing harcoded values for latitude & longitude. Please change as
         // per your need. This is just used to drop a Marker on the Map
-        latitude = 48.8894274;
-        longitude = 2.2484253;
+
 
         setUpMapIfNeeded(); // For setting up the MapFragment
 
@@ -58,7 +57,9 @@ public class AccueilFragment extends Fragment implements LocationListener, Adapt
         return view;
     }
 
-    /***** Sets up the map if it is possible to do so *****/
+    /**
+     * ** Sets up the map if it is possible to do so ****
+     */
     public static void setUpMapIfNeeded() {
         // Do a null check to confirm that we have not already instantiated the
         // map.
@@ -75,7 +76,7 @@ public class AccueilFragment extends Fragment implements LocationListener, Adapt
     /**
      * This is where we can add markers or lines, add listeners or move the
      * camera.
-     * <p>
+     * <p/>
      * This should only be called once and when we are sure that {@link #mMap}
      * is not null.
      */
@@ -83,12 +84,7 @@ public class AccueilFragment extends Fragment implements LocationListener, Adapt
         // For showing a move to my loction button
         mMap.setMyLocationEnabled(true);
         // For dropping a marker at a point on the Map
-        mMap.addMarker(new MarkerOptions()
-                .position(new LatLng(latitude, longitude)).title("My Home")
-                .snippet("Home Address"));
-        // For zooming automatically to the Dropped PIN Location
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(
-                latitude, longitude), 15.0f));
+        addMarkes();
     }
 
     @Override
@@ -107,10 +103,12 @@ public class AccueilFragment extends Fragment implements LocationListener, Adapt
         }
     }
 
-    /****
+    /**
+     * *
      * The mapfragment's id must be removed from the FragmentManager or else if
      * the same it is passed on the next time then app will crash
-     ****/
+     * **
+     */
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -165,8 +163,7 @@ public class AccueilFragment extends Fragment implements LocationListener, Adapt
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int pos,
                                long id) {
-        switch((int)id)
-        {
+        switch ((int) id) {
             case 0:
                 mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
                 break;
@@ -179,7 +176,8 @@ public class AccueilFragment extends Fragment implements LocationListener, Adapt
             case 3:
                 mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
                 break;
-        };
+        }
+
     }
 
     @Override
@@ -187,7 +185,35 @@ public class AccueilFragment extends Fragment implements LocationListener, Adapt
         // TODO Auto-generated method stub
 
     }
-	
+
+    public static void addMarkes() {
+        ArrayList<ArrayList> listMarker = new ArrayList();
+        ArrayList marker1 = new ArrayList();
+        marker1.add("Titre1");
+        marker1.add("Description1");
+        marker1.add(48.926003);
+        marker1.add(2.189145);
+        listMarker.add(marker1);
+
+        ArrayList marker2 = new ArrayList();
+        marker2.add("Titre2");
+        marker2.add("Description2");
+        marker2.add(48.9259709);
+        marker2.add(2.1153493);
+        listMarker.add(marker2);
+
+
+        for (ArrayList markerFromList : listMarker) {
+            String title = (String) markerFromList.get(0);
+            String snippet = (String) markerFromList.get(1);
+            LatLng loc = new LatLng((Double) markerFromList.get(2), (Double) markerFromList.get(3));
+            MarkerOptions markerOption = new MarkerOptions();
+            markerOption.snippet(snippet).title(title).position(loc);
+            mMap.addMarker(markerOption);
+        }
+
+    }
+
 }
 
 
