@@ -1,0 +1,30 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 19
+    buildToolsVersion "21.1.0"
+
+    signingConfigs {
+        debug {
+            storeFile file(project.property("MyProject.signing") + ".keystore")
+            storePassword "polspe24dio"
+            keyAlias "KeyStore1"
+            keyPassword "polspe24dio"
+        }
+    }
+
+    buildTypes {
+        debug {
+            runProguard false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+    }
+
+}
+
+
+dependencies {
+    compile 'com.android.support:support-v4:19.1.0'
+    compile 'com.google.android.gms:play-services:+'
+
+}
