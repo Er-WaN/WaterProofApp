@@ -57,9 +57,9 @@ public class MainActivity extends FragmentActivity {
 	private LocationManager lm;
 
 	private boolean onRecording;
-	
+
 	private String dateDebutSeance;
-	
+
 
 	public static FragmentManager fragmentManager;
 
@@ -75,12 +75,12 @@ public class MainActivity extends FragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		
+
 		// initialising the object of the FragmentManager. Here I'm passing getSupportFragmentManager(). You can pass getFragmentManager() if you are coding for Android 3.0 or above.
 	    fragmentManager = getSupportFragmentManager();
 
 		mTitle = mDrawerTitle = getTitle();
-		
+
 		drawerArrow = new DrawerArrowDrawable(this) {
 	        @Override
 	        public boolean isLayoutRtl() {

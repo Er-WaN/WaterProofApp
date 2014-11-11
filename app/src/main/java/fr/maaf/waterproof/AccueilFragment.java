@@ -1,23 +1,27 @@
 package fr.maaf.waterproof;
 
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
-
 import android.app.Fragment;
+import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationProvider;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
 
@@ -31,6 +35,12 @@ public class AccueilFragment extends Fragment implements LocationListener, Adapt
 
     private static GoogleMap mMap;
 
+    static final int REQUEST_IMAGE_CAPTURE = 1;
+
+    public static FragmentManager fragmentManager;
+
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -42,17 +52,32 @@ public class AccueilFragment extends Fragment implements LocationListener, Adapt
         // Passing harcoded values for latitude & longitude. Please change as
         // per your need. This is just used to drop a Marker on the Map
 
-
         setUpMapIfNeeded(); // For setting up the MapFragment
-
-
-        view.findViewById(R.id.spinner);
 
         Spinner map_type = (Spinner) view.findViewById(R.id.spinner);
         map_type.setOnItemSelectedListener(this);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.map_type, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         map_type.setAdapter(adapter);
+
+        final ImageView addPoint = (ImageView) view.findViewById(R.id.addPoint);
+        addPoint.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addPoint();
+            }
+        });
+
+        View dialogView = (View) inflater.inflate(R.layout.add_point_dialog, null);
+
+        final ImageView addPicture = (ImageView) dialogView.findViewById(R.id.camera);
+        addPicture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addPicture();
+            }
+        });
+
 
         return view;
     }
@@ -186,16 +211,19 @@ public class AccueilFragment extends Fragment implements LocationListener, Adapt
 
     }
 
+    /**
+     * Permet de générer des points sur la carte
+     */
     public static void addMarkes() {
-        ArrayList<ArrayList> listMarker = new ArrayList();
-        ArrayList marker1 = new ArrayList();
+        ArrayList<ArrayList> listMarker = new ArrayList<ArrayList>();
+        ArrayList<Object> marker1 = new ArrayList<Object>();
         marker1.add("Titre1");
         marker1.add("Description1");
         marker1.add(48.926003);
         marker1.add(2.189145);
         listMarker.add(marker1);
 
-        ArrayList marker2 = new ArrayList();
+        ArrayList<Object> marker2 = new ArrayList<Object>();
         marker2.add("Titre2");
         marker2.add("Description2");
         marker2.add(48.9259709);
@@ -214,6 +242,24 @@ public class AccueilFragment extends Fragment implements LocationListener, Adapt
 
     }
 
+    /**
+     * Methode appelée lors d'un click sur le bouton Rouge
+     */
+    public void addPoint() {
+
+        DialogFagment dialog = DialogFagment.newInstance();
+        dialog.show(MainActivity.fragmentManager, "dialog");
+
+
+
+//
+
+    }
+
+    public void addPicture() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        }
+    }
 }
-
-

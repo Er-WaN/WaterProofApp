@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/addPointDialog">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Ajout d&apos;une fontaine"
+        android:id="@+id/textView"
+        android:layout_gravity="center_horizontal"
+        android:layout_centerHorizontal="true"
+        android:paddingTop="8dp"
+        android:gravity="center"
+        android:paddingBottom="8dp"
+        android:layout_alignParentTop="true"
+        android:background="#3733332d"
+        android:textSize="20dp" />
+
+    <EditText
+        android:layout_width="130dip"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText"
+        android:contentDescription="Nom"
+        android:hint="Nom"
+        android:layout_below="@+id/textView"
+        android:layout_alignLeft="@+id/editText2"
+        android:layout_alignStart="@+id/editText2" />
+
+    <EditText
+        android:layout_width="200dip"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText2"
+        android:contentDescription="Description"
+        android:hint="Description"
+        android:layout_below="@+id/editText"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="20dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/camera"
+        android:layout_toEndOf="@+id/editText"
+        android:layout_marginLeft="19dp"
+        android:background="@drawable/ic_action_camera"
+        android:layout_alignBottom="@+id/editText"
+        android:layout_toRightOf="@+id/editText" />
+
+    <ImageView
+        android:layout_width="70dip"
+        android:layout_height="70dip"
+        android:id="@+id/thumb"
+        android:layout_toEndOf="@+id/editText2"
+        android:layout_alignBottom="@+id/editText2"
+        android:layout_toRightOf="@+id/editText2"
+        android:layout_marginLeft="20dip"
+        android:layout_marginRight="20dip" />
+
+</RelativeLayout>

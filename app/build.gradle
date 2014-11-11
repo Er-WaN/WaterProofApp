@@ -26,5 +26,8 @@ android {
 dependencies {
     compile 'com.android.support:support-v4:19.1.0'
     compile 'com.google.android.gms:play-services:+'
+    compile 'com.github.markushi:circlebutton:1.1'
+    compile 'me.drakeet.materialdialog:library:1.0.7'
+
 
 }
